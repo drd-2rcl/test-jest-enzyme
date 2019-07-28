@@ -1,17 +1,20 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
+import { useSelector } from 'react-redux';
 
 import TechList from '~/components/TechList';
 
+jest.mock('react-redux');
+
 describe('TechList component', () => {
-  it('should be able to add new tech', () => {
-    const { getByText, getByTestId, getByLabelText } = render(<TechList />);
+  it('should render tech list', () => {
+    useSelector.mockImplementation(cb => cb({
+      techs: ['Nodejs', 'Reactjs']
+    }));
 
-    // fireEvent.change(getByLabelText('Tech'), { target: { value: 'Node.js' } });
-    // fireEvent.submit(getByTestId('tech-form')); 
+    const { getByTestId, getByText } = render(<TechList />);
 
-    fireEvent.click(getByText('Adicionar'));
-
-    expect(getByTestId('tech-list')).toContainElement(getByText('Node.js'));
+    expect(getByTestId('tech-list')).toContainElement(getByText('Nodejs'));
+    expect(getByTestId('tech-list')).toContainElement(getByText('Reactjs'));
   });
 });
