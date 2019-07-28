@@ -5,10 +5,11 @@ export default function TechList() {
   const [newTech, setNewTech] = useState('');
 
   const dispatch = useDispatch();
-  const techs = useSelector(state = state.techs);
+  const techs = useSelector(state => state.techs);
 
   function handleAddTech() {
-    dispatch({ type: 'ADD_TECH', payload: { tech: newTech } })
+    dispatch({ type: 'ADD_TECH', payload: { tech: newTech } });
+    
     setNewTech('');
   }
   
